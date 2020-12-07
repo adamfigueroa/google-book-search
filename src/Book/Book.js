@@ -11,9 +11,17 @@ class Book extends Component {
     }
 
     handleSearch = (e) => {
-        console.log(e.target.value)
         this.setState({
             searchField: e.target.value
+        })
+    }
+
+    snagBookInfo = (e) => {
+        e.preventDefault();
+        fetch(`https://www.googleapis.com/books/v1/volumes?q=${this.state.searchField}&key=AIzaSyB_jtEQDJbEHSE759u8F-XnPTlvWdHT158`)
+        .then(response => response.json())
+        .then((data) => {
+            console.log(data)
         })
     }
 
@@ -21,7 +29,7 @@ class Book extends Component {
 
         return (
             <div>
-                <SearchBar handleSearch={this.handleSearch}/>
+                <SearchBar handleSearch={this.handleSearch} snagBookInfo={this.snagBookInfo}/>
             </div>
         )
     }
